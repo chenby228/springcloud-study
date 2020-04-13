@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @auther zzyy
+ *
  * @create 2020-02-18 10:43
  */
 @RestController
@@ -35,7 +35,6 @@ public class PaymentController
     {
         int result = paymentService.create(payment);
         log.info("*****插入结果："+result);
-
         if(result > 0)
         {
             return new CommonResult(200,"插入数据库成功,serverPort: "+serverPort,result);
@@ -62,7 +61,7 @@ public class PaymentController
     {
         List<String> services = discoveryClient.getServices();
         for (String element : services) {
-            log.info("*****element: "+element);
+            log.info("****element: "+element);
         }
 
         List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
@@ -73,5 +72,8 @@ public class PaymentController
         return this.discoveryClient;
     }
 
-
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB(){
+        return serverPort;
+    }
 }
